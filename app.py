@@ -80,7 +80,12 @@ def upload():
 # Correct approach: Use environment variable and run under WSGI server (Gunicorn)
 if __name__ == '__main__':
     debug = os.getenv('FLASK_DEBUG', 'False').lower() == 'true'
-    host = os.getenv('HOST', '0.0.0.0')
+    # Secure default: only bind to localhost unless overridden
+    host = os.getenv('HOST')
     port = int(os.getenv('PORT', 5000))
-    app.run(debug=debug, host=host, port=port)
 
+    if not host:
+        # By default, restrict binding to localhost (secure)
+        host = '127.0.0.1'
+
+    app.run(debug=debug, host=host, port=port)
