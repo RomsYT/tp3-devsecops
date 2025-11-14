@@ -29,5 +29,7 @@ USER appuser
 # Exposer le port de ton application
 EXPOSE 5000
 
+ENV HOST=0.0.0.0
+
 # Commande de démarrage
 CMD ["python", "app.py"]
